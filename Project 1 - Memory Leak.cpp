@@ -14,14 +14,15 @@ void deleteArray(struct mainArrays& array, int index);
 void printArrays(struct mainArrays& array, int index);
 void printDeallocatedArrays(struct mainArrays& array);
 
-struct mainArrays {
+//Declare struct
+struct mainArrays
+{
     char * pointerArray[20];
     int intArray[20];
-    int pointerArraySize;
-    int intArraySize;
 };
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
     int choiceForMainMenu, choice2, indexChoice = 0;
     struct mainArrays array;  //declare mainArrays object
     buildArrays(array);       //build arrays needed
@@ -119,7 +120,6 @@ void buildArrays(struct mainArrays& array)
   
   //build the char array
   srand(static_cast<unsigned int>(time(NULL)));  //built in random function
-  //srand((time(NULL)));
   for(int i = 0; i < 20; i++)
   {
     //instantiate new character arrays for pointers
@@ -128,7 +128,8 @@ void buildArrays(struct mainArrays& array)
     for(int j = 0; j < 20; j++)
     {
       number = rand() % 26; //generate random number
-      character = 'a' + number; //converr to character
+      character = 'a' + number; //convert to character
+      character = toupper(character); //convert to uppercase
       array.pointerArray[i][j] = character; //insert random character into array
     }
   }
@@ -163,6 +164,7 @@ void printDeallocatedArrays(struct mainArrays& array)
 {
     //print the indices of the deleted values of array
     cout << "\nThe deallocated values: " << endl;
+    
     for(int i = 0; i < 20; i++)
     {
         if(array.pointerArray[i] == NULL)
