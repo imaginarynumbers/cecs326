@@ -125,7 +125,7 @@ void buildArrays(struct mainArrays& array)
     //instantiate new character arrays for pointers
     array.pointerArray[i] = new char[array.intArray[i]];
     //random chars inserted
-    for(int j = 0; j < 20; j++)
+    for(int j = 0; j < array.intArray[i]; j++)
     {
       number = rand() % 26; //generate random number
       character = 'a' + number; //convert to character
