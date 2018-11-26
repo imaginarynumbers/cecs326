@@ -17,11 +17,14 @@ using namespace std;
 //Prototypes
 int searchForText(ifstream& file,string search);
 int replaceText(string oldText, string newText);
+string getWord();
+string getReplace();
 void dotGen();
 
 int main(int argc, const char * argv[])
 {
   string input = "";
+    string newWord = "";
   // opens alice in wonderland text file
   // for project use only, no copyright infringement intended
   ifstream file;
@@ -33,12 +36,9 @@ int main(int argc, const char * argv[])
     exit(1);
   }
   cout << getpid() <<"Parent: Process" << endl;
-  while(checker > 0 && input != "!wq")
+  while( (input = getWord()) != "wq" && (newWord = getReplace()) != "wq")
   {
     int childPID = fork();
-    //cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
-    cout << getpid() <<": Enter a string to search for." << endl;
-    cin >> input;
     if(childPID > 0)
     {
       cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
@@ -99,6 +99,22 @@ int main(int argc, const char * argv[])
   file.close();
   exit(0);
 } // end of main()
+//-----------------------------------------------------------
+string getWord()
+{
+  string word;
+  cout << "Enter a word to search for." << endl;
+  cin >> word;
+  return word;
+}
+//-----------------------------------------------------------
+string getReplace()
+{
+  string word;
+  cout << "Enter a word to replace." << endl;
+  cin >> word;
+  return word;
+}
 //-----------------------------------------------------------
 int searchForText(ifstream& file,string searchFor)
 {
