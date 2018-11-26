@@ -22,7 +22,6 @@ void dotGen();
 int main(int argc, const char * argv[])
 {
   string input = "";
-  long childPID;
   // opens alice in wonderland text file
   // for project use only, no copyright infringement intended
   ifstream file;
@@ -34,52 +33,48 @@ int main(int argc, const char * argv[])
     exit(1);
   }
   cout << getpid() <<"Parent: Process" << endl;
-  while(checker > 0)
+  while(checker > 0 && input != "!wq")
   {
-    childPID = fork();
+    int childPID = fork();
+    cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
     cout << getpid() <<": Enter a string to search for." << endl;
     cin >> input;
-    if(input != "!wq")
+    if(childPID > 0)
     {
-        // create new child process
-        cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
-      if (childPID == 0)
-      {
-        while(checker == 0)
-        {
-            checker = searchForText(file, input);
-            if(checker == 0) cout << ".";
-        }
-          //found a word to replace
-          string newWord = "";
-          
-          int replaceCounter;
-          //childPID = fork(); // create new child process
-          cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
-          cout << "Enter the replacement word" << endl;
-          cin >> newWord;
-          replaceCounter = replaceText(input, newWord);
-          cout << "Replaced: " << replaceCounter << " words" << endl;
-        exit(0);
-      }
-      if(childPID > 0)
-      {
-          cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
-          wait(0);
-      }
-      if(childPID < 0)
-      {
-        cout << "Search failed." << endl;
-        break;
-      }
-      else
-      {
-        wait(0);
-        dotGen();  //print 1000 periods to signify waiting
-        cout << "\nError." << endl;
-      }
+      cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
+      wait(0);
     }
-    cout << "Found: " << checker << " '" << input << "'" << endl;
+    else if (childPID == 0)
+    {
+      while(checker == 0)
+      {
+        checker = searchForText(file, input);
+        if(checker == 0) cout << ".";
+      }
+      //found a word to replace
+      string newWord = "";
+          
+      int replaceCounter;
+      //childPID = fork(); // create new child process
+      cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
+      cout << "Enter the replacement word" << endl;
+      cin >> newWord;
+      replaceCounter = replaceText(input, newWord);
+      cout << "Replaced: " << replaceCounter << " words" << endl;
+      exit(0);
+    }
+//    if(childPID < 0)
+//    {
+//      cout << "Search failed." << endl;
+//      break;
+//    }
+    else
+    {
+      wait(0);
+      dotGen();  //print 1000 periods to signify waiting
+      cout << "\nError." << endl;
+    }
+    //cout << "Found: " << checker << " '" << input << "'" << endl;
 //    if(checker > 1)
 //    {
 //      //found a word to replace
