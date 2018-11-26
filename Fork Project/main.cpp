@@ -16,7 +16,7 @@ using namespace std;
 
 //Prototypes
 int searchForText(ifstream& file,string search);
-int replaceText(string oldText, string newText);
+int replaceText(const string& oldText, const string& newText);
 string getWord();
 string getReplace();
 void dotGen();
@@ -101,7 +101,7 @@ int searchForText(ifstream& file,string searchFor)
   return counter;
 } // end of searchForText()
 //-----------------------------------------------------------
-int replaceText(string oldText, string newText)
+int replaceText(const string& oldText, const string& newText)
 {
   //replace text here
   ifstream original; //  original text file object
