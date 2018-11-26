@@ -53,21 +53,10 @@ int main(int argc, const char * argv[])
       }
       //found a word to replace
       string newWord = "";
-          
       int replaceCounter;
-      //childPID = fork(); // create new child process
-      cout << "Enter the replacement word" << endl;
-      cin >> newWord;
-      if(newWord == "!wq")
-      {
-        break;
-      }
-      else
-      {
-        replaceCounter = replaceText(input, newWord);
-        cout << "Replaced: " << replaceCounter << " words" << endl;
-        exit(0);
-      }
+      replaceCounter = replaceText(input, newWord);
+      cout << "Replaced: " << replaceCounter << " words" << endl;
+      exit(0);
     }
 //    if(childPID < 0)
 //    {
