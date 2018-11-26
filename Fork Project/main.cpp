@@ -23,13 +23,12 @@ void dotGen();
 
 int main(int argc, const char * argv[])
 {
-  string input = "";
-    string newWord = "";
+  string input;
+  string newWord;
   // opens alice in wonderland text file
   // for project use only, no copyright infringement intended
   ifstream file;
   file.open("alice.txt");
-  int checker = 1; //checks if words were found, to kill the loop
   if(!file) // checks if text file was opened
   {
     cout << "Unable to open file" << endl;
@@ -46,13 +45,13 @@ int main(int argc, const char * argv[])
     }
     else if (childPID == 0)
     {
+      int checker = 0;
       while(checker == 0)
       {
         checker = searchForText(file, input);
         if(checker == 0) cout << ".";
       }
       //found a word to replace
-      string newWord = "";
       int replaceCounter;
       replaceCounter = replaceText(input, newWord);
       cout << "Replaced: " << replaceCounter << " words" << endl;
