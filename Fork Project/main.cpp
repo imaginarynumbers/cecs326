@@ -35,7 +35,7 @@ int main(int argc, const char * argv[])
     exit(1);
   }
   cout << getpid() <<"Parent: Process" << endl;
-  while( (input = getWord()) != "wq" && (newWord = getReplace()) != "wq")
+  while((input = getWord()) != "!wq" && (newWord = getReplace()) != "!wq")
   {
     int childPID = fork();
     if(childPID > 0)
@@ -49,40 +49,19 @@ int main(int argc, const char * argv[])
       while(checker == 0)
       {
         checker = searchForText(file, input);
-        if(checker == 0) cout << ".";
+        if(checker == 0) dotGen();
+        //found a word to replace
+        int replaceCounter;
+        replaceCounter = replaceText(input, newWord);
+        cout << "Replaced: " << replaceCounter << " words" << endl;
+        exit(0);
       }
-      //found a word to replace
-      int replaceCounter;
-      replaceCounter = replaceText(input, newWord);
-      cout << "Replaced: " << replaceCounter << " words" << endl;
-      exit(0);
     }
-//    if(childPID < 0)
-//    {
-//      cout << "Search failed." << endl;
-//      break;
-//    }
     else
     {
-      wait(0);
       dotGen();  //print 1000 periods to signify waiting
       cout << "\nError." << endl;
     }
-    //cout << "Found: " << checker << " '" << input << "'" << endl;
-//    if(checker > 1)
-//    {
-//      //found a word to replace
-//      string newWord = "";
-//
-//      int replaceCounter;
-//      //childPID = fork(); // create new child process
-//      cout << "Child process: pid " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
-//      cout << "Enter the replacement word" << endl;
-//      cin >> newWord;
-//      replaceCounter = replaceText(input, newWord);
-//      cout << "Replaced: " << replaceCounter << " words" << endl;
-//    }
-//    checker = 1;
   }
   file.close();
   exit(0);
@@ -90,18 +69,18 @@ int main(int argc, const char * argv[])
 //-----------------------------------------------------------
 string getWord()
 {
-  string word;
+  string input;
   cout << "Enter a word to search for." << endl;
-  cin >> word;
-  return word;
+  cin >> input;
+  return input;
 }
 //-----------------------------------------------------------
 string getReplace()
 {
-  string word;
+  string newWord;
   cout << "Enter a word to replace." << endl;
-  cin >> word;
-  return word;
+  cin >> newWord;
+  return newWord;
 }
 //-----------------------------------------------------------
 int searchForText(ifstream& file,string searchFor)
