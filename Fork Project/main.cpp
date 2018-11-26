@@ -36,7 +36,7 @@ int main(int argc, const char * argv[])
   while(checker > 0 && input != "!wq")
   {
     int childPID = fork();
-    cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
+    //cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
     cout << getpid() <<": Enter a string to search for." << endl;
     cin >> input;
     if(childPID > 0)
@@ -56,12 +56,18 @@ int main(int argc, const char * argv[])
           
       int replaceCounter;
       //childPID = fork(); // create new child process
-      cout << "Parent: " << getpid() << ", ppid " << getppid() << ", child " << childPID << endl;
       cout << "Enter the replacement word" << endl;
       cin >> newWord;
-      replaceCounter = replaceText(input, newWord);
-      cout << "Replaced: " << replaceCounter << " words" << endl;
-      exit(0);
+      if(newWord == "!wq")
+      {
+        break;
+      }
+      else
+      {
+        replaceCounter = replaceText(input, newWord);
+        cout << "Replaced: " << replaceCounter << " words" << endl;
+        exit(0);
+      }
     }
 //    if(childPID < 0)
 //    {
