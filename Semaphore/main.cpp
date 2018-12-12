@@ -29,10 +29,10 @@ void parent_cleanup(SEMAPHORE& semaphore, float value);
 
 // Global variables
 const int BUFFERSIZE = 3; //buffer size constant
-float CHECKINGDEPOSIT = 200; //d
-float WITHDRAWFROM = 100; //w
-float TRANSFERTO = 75; //stv
-float SPEND = 60; //stc
+float CHECKINGDEPOSIT = 200; 
+float WITHDRAWFROM = 100; 
+float TRANSFERTO = 75; 
+float SPEND = 60; 
 enum {deposit, withdraw, transfer}; //from bounded buffer problem
 
 
