@@ -40,9 +40,9 @@ int main()
 {
   //Shared variable initialization
   int counter = 0;
-  float sharedfloat = 500; //savings
-  float sharedfloat2 = 500; //checking
-  float sharedfloat3 = 500; //vacation
+  float sharedfloat = 500;
+  float sharedfloat2 = 500; 
+  float sharedfloat3 = 500; 
   int count = 1; //operations
   long childPID;
     
